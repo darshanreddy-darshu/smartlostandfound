@@ -74,7 +74,6 @@ function Dashboard() {
     try {
       setLoading(true);
 
-      // Get currently logged-in user
       const {
         data: { user },
         error: userError,
@@ -84,13 +83,11 @@ function Dashboard() {
         throw userError;
       }
 
-      // No user = send to login
       if (!user) {
         navigate("/login", { replace: true });
         return;
       }
 
-      // Keep user state updated
       setUser(user);
 
       // --------------------------------------------------
@@ -164,7 +161,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/found/${foundItemId}/verify`,
+        `https://smartlostandfound-7oo8.onrender.com/api/found/${foundItemId}/verify`,
         {
           method: "PATCH",
           headers: {
@@ -209,7 +206,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/found/${foundItemId}/reject`,
+        `https://smartlostandfound-7oo8.onrender.com/api/found/${foundItemId}/reject`,
         {
           method: "PATCH",
           headers: {
@@ -260,7 +257,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/found/${foundItemId}/returned`,
+        `https://smartlostandfound-7oo8.onrender.com/api/found/${foundItemId}/returned`,
         {
           method: "PATCH",
           headers: {
@@ -328,8 +325,6 @@ function Dashboard() {
       item.returned !== true
   );
 
-  // Number of possible comparisons between THIS USER'S
-  // lost and found reports.
   const possibleComparisons =
     lostItems.length * foundItems.length;
 
@@ -350,18 +345,10 @@ function Dashboard() {
     <div className="form-page">
       <div className="form-container">
 
-        {/* ==================================================
-            BACK TO HOME
-        ================================================== */}
-
         <Link to="/home" className="back-link">
           <ArrowLeft size={18} />
           Back to Home
         </Link>
-
-        {/* ==================================================
-            HEADER
-        ================================================== */}
 
         <div className="form-header">
 
@@ -381,10 +368,6 @@ function Dashboard() {
           </p>
 
         </div>
-
-        {/* ==================================================
-            USER CARD
-        ================================================== */}
 
         <div
           className="step-card"
@@ -466,10 +449,6 @@ function Dashboard() {
 
         </div>
 
-        {/* ==================================================
-            LOADING
-        ================================================== */}
-
         {loading ? (
 
           <div className="step-card">
@@ -489,10 +468,6 @@ function Dashboard() {
         ) : (
 
           <>
-
-            {/* ==================================================
-                STATS
-            ================================================== */}
 
             <div
               className="steps"
@@ -557,10 +532,6 @@ function Dashboard() {
 
             </div>
 
-            {/* ==================================================
-                EXTRA STATUS
-            ================================================== */}
-
             <div
               className="steps"
               style={{ marginBottom: "25px" }}
@@ -610,10 +581,6 @@ function Dashboard() {
 
             </div>
 
-            {/* ==================================================
-                QUICK ACTIONS
-            ================================================== */}
-
             <div
               className="step-card"
               style={{ marginBottom: "25px" }}
@@ -659,10 +626,6 @@ function Dashboard() {
               </div>
 
             </div>
-
-            {/* ==================================================
-                MY LOST REPORTS
-            ================================================== */}
 
             <div
               className="step-card"
@@ -760,10 +723,6 @@ function Dashboard() {
 
             </div>
 
-            {/* ==================================================
-                MY FOUND REPORTS
-            ================================================== */}
-
             <div
               className="step-card"
               style={{ marginBottom: "25px" }}
@@ -854,10 +813,6 @@ function Dashboard() {
 
                       </div>
 
-                      {/* ----------------------------------------
-                          CLAIM ACTIONS
-                      ---------------------------------------- */}
-
                       {item.claim_status === "pending" &&
                         item.returned !== true && (
 
@@ -905,10 +860,6 @@ function Dashboard() {
 
                         )}
 
-                      {/* ----------------------------------------
-                          RETURN ACTION
-                      ---------------------------------------- */}
-
                       {item.claim_status === "verified" &&
                         item.returned !== true && (
 
@@ -939,10 +890,6 @@ function Dashboard() {
 
                         )}
 
-                      {/* ----------------------------------------
-                          RETURNED
-                      ---------------------------------------- */}
-
                       {item.returned === true && (
 
                         <div
@@ -971,10 +918,6 @@ function Dashboard() {
               )}
 
             </div>
-
-            {/* ==================================================
-                REFRESH
-            ================================================== */}
 
             <div
               style={{
