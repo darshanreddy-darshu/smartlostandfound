@@ -1,0 +1,322 @@
+/* =========================================================
+   SMARTMATCH LOADER — "the case is being cross-referenced"
+   Reuses the wax-seal + dashed orbit + claim-ticket language
+   from the rest of the case-file design system.
+   ========================================================= */
+
+.smart-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at 50% 42%, rgba(34, 30, 23, 0.05), transparent 55%),
+    var(--paper);
+
+  animation: smartLoaderFadeIn 0.3s ease forwards;
+}
+
+.smart-loader-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   MAIN LOADER
+   ========================================================= */
+
+.smart-loader {
+  position: relative;
+  z-index: 1;
+
+  width: 260px;
+  height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   ORBIT RINGS — dashed, like the corkboard connector rings
+   used on the SmartMatch and Community pages
+   ========================================================= */
+
+.smart-loader-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px dashed var(--line-strong);
+}
+
+.smart-loader-ring-one {
+  width: 150px;
+  height: 150px;
+
+  border-top-color: var(--brass-dark);
+  border-right-color: var(--brass-soft);
+
+  animation: smartLoaderRotate 2.5s linear infinite;
+}
+
+.smart-loader-ring-two {
+  width: 122px;
+  height: 122px;
+
+  border-left-color: var(--rust);
+  border-bottom-color: var(--rust-soft);
+
+  animation: smartLoaderRotateReverse 2s linear infinite;
+}
+
+.smart-loader-ring-three {
+  width: 96px;
+  height: 96px;
+
+  border-top-color: var(--ledger);
+  border-color: transparent;
+  border-top-style: dashed;
+
+  animation: smartLoaderRotate 1.5s linear infinite;
+}
+
+
+/* =========================================================
+   CORE — the wax-seal stamp, same treatment as the SmartMatch
+   hero and the score reveal, just doing its work here
+   ========================================================= */
+
+.smart-loader-core {
+  position: relative;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: radial-gradient(circle at 34% 28%, #f3d896, var(--brass) 45%, var(--brass-dark) 82%);
+  border: 3px solid var(--surface);
+  outline: 2px solid var(--ink);
+
+  box-shadow: 0 10px 24px rgba(34, 30, 23, 0.22);
+
+  animation: smartLoaderPulse 1.5s ease-in-out infinite;
+}
+
+.smart-loader-core-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+
+  background: var(--surface);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4) inset;
+
+  animation: smartLoaderCorePulse 1s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   SCAN LINE — sweeping over a claim ticket, not a HUD radar
+   ========================================================= */
+
+.smart-loader-scan-line {
+  position: absolute;
+  width: 118px;
+  height: 2px;
+
+  background: repeating-linear-gradient(
+    to right,
+    var(--brass-dark) 0 5px,
+    transparent 5px 9px
+  );
+
+  animation: smartLoaderScan 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ORBITING PINS
+   ========================================================= */
+
+.smart-loader-orbit {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 32% 28%, #f0c56a, var(--brass-dark) 75%);
+  box-shadow: 0 0 0 2px var(--surface), 0 2px 4px rgba(34, 30, 23, 0.3);
+}
+
+.orbit-one {
+  animation: smartLoaderOrbitOne 2.5s linear infinite;
+}
+
+.orbit-two {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle at 32% 28%, #e08663, var(--rust) 75%);
+  animation: smartLoaderOrbitTwo 2s linear infinite;
+}
+
+
+/* =========================================================
+   LOADING DOTS
+   ========================================================= */
+
+.smart-loader-dots {
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  gap: 6px;
+}
+
+.smart-loader-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brass-dark);
+  animation: smartLoaderDot 1.2s ease-in-out infinite;
+}
+
+.smart-loader-dots span:nth-child(2) { animation-delay: 0.15s; }
+.smart-loader-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+
+/* =========================================================
+   TEXT — case-file tag typography, same mono used for tags
+   and score labels throughout the system
+   ========================================================= */
+
+.smart-loader-text {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.smart-loader-title {
+  font-family: var(--font-tag);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.smart-loader-subtitle {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+
+  color: var(--ink-muted);
+  white-space: nowrap;
+
+  animation: smartLoaderTextPulse 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes smartLoaderFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes smartLoaderRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes smartLoaderRotateReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes smartLoaderPulse {
+  0%, 100% { transform: scale(0.96); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes smartLoaderCorePulse {
+  0%, 100% { transform: scale(0.75); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes smartLoaderScan {
+  0% { transform: translateY(-52px); opacity: 0; }
+  20% { opacity: 1; }
+  50% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(52px); opacity: 0; }
+}
+
+@keyframes smartLoaderOrbitOne {
+  from { transform: rotate(0deg) translateX(88px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(88px) rotate(-360deg); }
+}
+
+@keyframes smartLoaderOrbitTwo {
+  from { transform: rotate(360deg) translateX(72px) rotate(-360deg); }
+  to { transform: rotate(0deg) translateX(72px) rotate(0deg); }
+}
+
+@keyframes smartLoaderDot {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes smartLoaderTextPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smart-loader-ring,
+  .smart-loader-core,
+  .smart-loader-core-dot,
+  .smart-loader-scan-line,
+  .smart-loader-orbit,
+  .smart-loader-dots span,
+  .smart-loader-subtitle {
+    animation: none;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .smart-loader {
+    transform: scale(0.9);
+  }
+
+  .smart-loader-subtitle {
+    font-size: 10px;
+  }
+}
