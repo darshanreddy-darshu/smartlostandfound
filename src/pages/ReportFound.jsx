@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import { Link } from "react-router-dom";
+
 import {
   ArrowLeft,
   Upload,
@@ -10,7 +12,9 @@ import {
 } from "lucide-react";
 
 import { supabase } from "../services/supabase";
+
 import { generateImageFingerprint } from "../lib/imageFingerprint";
+
 import SmartMatchLoader from "../components/SmartMatchLoader";
 
 /* =========================================================
@@ -449,7 +453,7 @@ function ReportFound() {
          * Only create a notification for
          * strong/possible matches.
          */
-        if (score >= 75) {
+        if (score >= 50) {
           possibleMatches.push({
             lostItem,
             score,
@@ -893,6 +897,7 @@ function ReportFound() {
             }}
           >
             <Brain size={17} />
+
             <span>
               AI Photo Fingerprint enabled
             </span>
