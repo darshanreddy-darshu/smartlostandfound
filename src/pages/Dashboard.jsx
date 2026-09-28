@@ -865,6 +865,50 @@ function Dashboard() {
                               marginTop: "12px",
                             }}
                           >
+ archana-workspace
+
+                            <Link
+                              to={`/verify-ownership/${item.id}`}
+                              className="secondary-button"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <ShieldCheck size={16} />
+                               Review Evidence
+                            </Link>
+
+                            <button
+                              type="button"
+                              className="primary-button"
+                              disabled={
+                                actionLoading === item.id
+                              }
+                              onClick={() => 
+                                verifyClaim(item.id)
+                              }
+                            >
+                              <CheckCircle2 size={16} />
+
+                              {actionLoading === item.id
+                                ? "Processing..."
+                                : "Verify Claim"}
+                            </button>
+
+                            <button
+                              type="button"
+                              className="secondary-button"
+                              disabled={
+                                actionLoading === item.id
+                              }
+                              onClick={() => 
+                                rejectClaim(item.id)
+                              }
+                            >
+                              <XCircle size={16} />
+                               Reject
+                            </button>
+
+
+ main
                             <button
                               type="button"
                               className="primary-button"

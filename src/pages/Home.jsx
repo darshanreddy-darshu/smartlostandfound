@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Eye,
   Users,
+  AlertTriangle,
 } from "lucide-react";
 
 function Home() {
@@ -345,6 +346,42 @@ function Home() {
                   <ArrowRight size={16} />
                 </div>
               </div>
+            </Link>
+
+
+            {/* COMPLAINT BOX */}
+
+            <Link
+              to="/complaints"
+              className="quick-card"
+            >
+
+              <div className="quick-icon purple-icon">
+                <AlertTriangle size={25} />
+              </div>
+
+              <div className="quick-card-content">
+
+                <span className="quick-label">
+                  COMPLAINT BOX
+                </span>
+
+                <h3>
+                  Report a problem
+                </h3>
+
+                <p>
+                  File a complaint about a false claim,
+                  misuse, or an issue with the platform.
+                </p>
+
+                <div className="quick-arrow">
+                  File Complaint
+                  <ArrowRight size={16} />
+                </div>
+
+              </div>
+
             </Link>
 
           </div>
