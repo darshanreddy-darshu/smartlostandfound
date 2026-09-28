@@ -4337,3 +4337,165 @@ html.dark .theme-toggle {
     max-width: none;
   }
 }
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+}
+
+.quick-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.quick-card-content h3 {
+  margin-bottom: 10px;
+}
+
+.quick-card-content p {
+  margin-bottom: 22px;
+}
+
+.quick-card .quick-button,
+.quick-card a {
+  margin-top: auto;
+}
+
+.quick-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  text-decoration: none;
+}
+.notification-action {
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 5px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.main-visual-card > .visual-link {
+  display: flex !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  text-align: right !important;
+  margin-top: 14px !important;
+}
+
+/* =========================================
+   HERO ENTRANCE ANIMATION
+   ========================================= */
+
+.hero-content > * {
+  opacity: 0;
+  animation: heroEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-content > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.hero-content > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.hero-content > *:nth-child(3) {
+  animation-delay: 0.35s;
+}
+
+.hero-content > *:nth-child(4) {
+  animation-delay: 0.5s;
+}
+
+.hero-content > *:nth-child(5) {
+  animation-delay: 0.65s;
+}
+
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   INFINITE AI FEATURE STRIP
+   ========================================= */
+
+.infinite-ai-strip {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 15px 0;
+  margin: 10px 0 20px;
+  background: var(--surface);
+}
+
+.infinite-ai-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+  animation: infiniteAIScroll 25s linear infinite;
+}
+
+.infinite-ai-track span {
+  font-family: var(--font-tag);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--ink);
+  padding: 0 18px;
+}
+
+.infinite-ai-track b {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+@keyframes infiniteAIScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause when hovered */
+.infinite-ai-strip:hover .infinite-ai-track {
+  animation-play-state: paused;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .infinite-ai-track {
+    animation-duration: 20s;
+  }
+
+  .infinite-ai-track span {
+    font-size: 10px;
+    padding: 0 14px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .infinite-ai-track {
+    animation: none;
+  }
+}
