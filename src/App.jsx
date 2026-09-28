@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 
 /* Pages */
-
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -30,6 +29,12 @@ import VerifyOwnership from "./pages/VerifyOwnership";
 import { Leaderboard } from "./pages/leaderboard";
 
 /* ======================================================
+   NOTIFICATION BELL
+====================================================== */
+
+import NotificationBell from "./components/NotificationBell";
+
+/* ======================================================
    AUTH CHECK
 ====================================================== */
 
@@ -40,14 +45,22 @@ function ProtectedRoute({ children }) {
     let mounted = true;
 
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const {
+        data,
+        error,
+      } = await supabase.auth.getSession();
 
       if (error) {
-        console.error("Session error:", error);
+        console.error(
+          "Session error:",
+          error
+        );
       }
 
       if (mounted) {
-        setSession(data?.session || null);
+        setSession(
+          data?.session || null
+        );
       }
     };
 
@@ -55,11 +68,13 @@ function ProtectedRoute({ children }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      if (mounted) {
-        setSession(newSession);
+    } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => {
+        if (mounted) {
+          setSession(newSession);
+        }
       }
-    });
+    );
 
     return () => {
       mounted = false;
@@ -77,8 +92,10 @@ function ProtectedRoute({ children }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          background: "var(--app-bg, #050505)",
-          color: "var(--app-text, white)",
+          background:
+            "var(--app-bg, #050505)",
+          color:
+            "var(--app-text, white)",
           fontSize: "18px",
         }}
       >
@@ -90,7 +107,12 @@ function ProtectedRoute({ children }) {
   /* Not logged in */
 
   if (!session) {
-    return <Navigate to="/login" replace />;
+    return (
+      <Navigate
+        to="/login"
+        replace
+      />
+    );
   }
 
   return children;
@@ -100,14 +122,21 @@ function ProtectedRoute({ children }) {
    THEME BUTTON
 ====================================================== */
 
-function ThemeToggle({ theme, onToggle }) {
+function ThemeToggle({
+  theme,
+  onToggle,
+}) {
   const isDark = theme === "dark";
 
   const handleClick = () => {
-    const button = document.querySelector(".theme-toggle");
+    const button =
+      document.querySelector(
+        ".theme-toggle"
+      );
 
     if (button) {
-      const rect = button.getBoundingClientRect();
+      const rect =
+        button.getBoundingClientRect();
 
       document.documentElement.style.setProperty(
         "--theme-x",
@@ -126,14 +155,18 @@ function ThemeToggle({ theme, onToggle }) {
       animation begins so the switch feels smoother.
     */
 
-    document.documentElement.classList.add("theme-transition");
+    document.documentElement.classList.add(
+      "theme-transition"
+    );
 
     setTimeout(() => {
       onToggle();
     }, 80);
 
     setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition");
+      document.documentElement.classList.remove(
+        "theme-transition"
+      );
     }, 700);
   };
 
@@ -142,8 +175,12 @@ function ThemeToggle({ theme, onToggle }) {
       type="button"
       className="theme-toggle"
       onClick={handleClick}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      title={`Switch to ${isDark ? "light" : "dark"} theme`}
+      aria-label={`Switch to ${
+        isDark ? "light" : "dark"
+      } theme`}
+      title={`Switch to ${
+        isDark ? "light" : "dark"
+      } theme`}
     >
       <span className="theme-icon theme-icon-sun">
         <Sun size={17} />
@@ -154,7 +191,11 @@ function ThemeToggle({ theme, onToggle }) {
       </span>
 
       <span className="theme-toggle-thumb">
-        {isDark ? <Moon size={14} /> : <Sun size={14} />}
+        {isDark ? (
+          <Moon size={14} />
+        ) : (
+          <Sun size={14} />
+        )}
       </span>
     </button>
   );
@@ -166,9 +207,15 @@ function ThemeToggle({ theme, onToggle }) {
 
 function App() {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("slf-theme");
+    const savedTheme =
+      localStorage.getItem(
+        "slf-theme"
+      );
 
-    if (savedTheme === "dark" || savedTheme === "light") {
+    if (
+      savedTheme === "dark" ||
+      savedTheme === "light"
+    ) {
       return savedTheme;
     }
 
@@ -180,14 +227,23 @@ function App() {
   ==================================================== */
 
   useEffect(() => {
-    const root = document.documentElement;
+    const root =
+      document.documentElement;
 
-    root.classList.remove("light", "dark");
+    root.classList.remove(
+      "light",
+      "dark"
+    );
+
     root.classList.add(theme);
 
-    localStorage.setItem("slf-theme", theme);
+    localStorage.setItem(
+      "slf-theme",
+      theme
+    );
 
-    root.style.colorScheme = theme;
+    root.style.colorScheme =
+      theme;
   }, [theme]);
 
   /* ====================================================
@@ -195,8 +251,11 @@ function App() {
   ==================================================== */
 
   const toggleTheme = () => {
-    setTheme((currentTheme) =>
-      currentTheme === "light" ? "dark" : "light"
+    setTheme(
+      (currentTheme) =>
+        currentTheme === "light"
+          ? "dark"
+          : "light"
     );
   };
 
@@ -210,6 +269,10 @@ function App() {
         onToggle={toggleTheme}
       />
 
+      {/* GLOBAL NOTIFICATION BELL */}
+
+      <NotificationBell />
+
       <Routes>
 
         {/* ==============================================
@@ -218,7 +281,12 @@ function App() {
 
         <Route
           path="/"
-          element={<Navigate to="/home" replace />}
+          element={
+            <Navigate
+              to="/home"
+              replace
+            />
+          }
         />
 
         {/* ==============================================
@@ -423,7 +491,12 @@ function App() {
 
         <Route
           path="*"
-          element={<Navigate to="/home" replace />}
+          element={
+            <Navigate
+              to="/home"
+              replace
+            />
+          }
         />
 
       </Routes>
